@@ -8,7 +8,6 @@ const CacheSession = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    console.log("Session data:", session); // Log session data for debugging
     // Ensure service worker is ready and we have a session to cache
     if (status === "authenticated" && session && "serviceWorker" in navigator && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({

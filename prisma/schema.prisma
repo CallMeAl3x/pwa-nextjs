@@ -82,3 +82,11 @@ model TwoFactorConfirmation {
   
   @@unique([userId])
 }
+
+model OfflineSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?  // Make email optional or required as needed
+  submittedAt DateTime @default(now())
+  userId   String // Optional user ID to link to the User model
+}
