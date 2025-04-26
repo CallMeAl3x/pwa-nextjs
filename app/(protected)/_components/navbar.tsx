@@ -22,6 +22,9 @@ export const Navbar = () => {
         <Button asChild variant={pathname === "/settings" ? "default" : "outline"}>
           <Link href="/settings">Settings</Link>
         </Button>
+        <Button asChild variant={pathname === "/offline-profile" ? "default" : "outline"}>
+          <Link href="/offline-profile">Offline Profile</Link>
+        </Button>
       </div>
       <UserButton />
     </nav>
