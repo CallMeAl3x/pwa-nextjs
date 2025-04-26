@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { BackgroundSyncPlugin, NetworkOnly, Serwist } from "serwist";
+import { BackgroundSyncPlugin, NetworkOnly, Serwist } from "serwist"; // Keeping imports as requested
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -11,10 +11,8 @@ declare global {
 declare const self: WorkerGlobalScope;
 
 // --- Background Sync Plugin ---
-// This plugin will queue failed POST requests and retry them when online.
-// The queue name 'offlineSubmissionsQueue' must match what you expect.
 const bgSyncPlugin = new BackgroundSyncPlugin("offlineSubmissionsQueue", {
-  maxRetentionTime: 24 * 60 // Retry for max 24 hours (optional)
+  maxRetentionTime: 24 * 60 // Retry for max 24 hours
 });
 
 // --- Serwist Configuration ---
@@ -25,18 +23,7 @@ const serwist = new Serwist({
   navigationPreload: true,
   // --- Runtime Caching ---
   runtimeCaching: [
-    // --- THIS IS THE CRUCIAL PART for offline form submission ---
-    // Apply Background Sync to POST requests to our submission API endpoint
-    {
-      matcher: ({ url, request }) => url.pathname === "/api/submit-offline" && request.method === "POST", // Match POST requests to the API route
-      handler: new NetworkOnly({
-        // Use NetworkOnly strategy
-        plugins: [bgSyncPlugin] // Apply the Background Sync plugin here
-      })
-    },
-    // --- End of crucial part ---
-
-    // Include defaultCache for other runtime caching needs (optional, adjust as needed)
+    // Include defaultCache for other runtime caching needs
     ...defaultCache
   ],
   // --- Fallbacks ---
@@ -52,5 +39,14 @@ const serwist = new Serwist({
   }
 });
 
-// Make sure Serwist listeners are added
+// --- Explicitly Register Capture for Background Sync ---
+// Using the 3-argument signature of registerCapture
+serwist.registerCapture(
+  // Matcher: Use a RegExp to match the path *only*
+  /^\/api\/submit-offline$/, // Matches the exact path /api/submit-offline
+  // Handler: NetworkOnly strategy with the Background Sync plugin
+  new NetworkOnly({ plugins: [bgSyncPlugin] }),
+  "POST"
+);
+
 serwist.addEventListeners();
