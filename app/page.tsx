@@ -1,29 +1,37 @@
-import Link from 'next/link';
+import { LoginButton } from "@/components/auth/login-button";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Link } from "lucide-react";
+import { Poppins } from "next/font/google";
 
-export default function Page() {
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"]
+});
+
+export default function Home() {
   return (
-    <main>
-      <h1>Home</h1>
-      <div>
-        <p>
-          The route below is not prefetched. If you go offline before visiting
-          it, you will fallback to an offline page (wait for it..).
-        </p>
-        <p>
-          If you visit it while online, come back here, and then go offline, it
-          will then be available offline - served from cache.
-        </p>
-        <Link href="/cached-on-nav" prefetch={false}>
-          cache on nav
-        </Link>
+    <main className="flex h-full flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
+      <div className="space-y-6 text-center">
+        <h1 className={cn("text-6xl font-semibold text-white drop-shadow-md", font.className)}>Auth</h1>
+        <p className="text-white text-lg">A simple authentication service</p>
+
+        <div>
+          <LoginButton mode="modal" asChild>
+            <Button variant="secondary" size="lg" className="mr-2">
+              Sign in
+            </Button>
+          </LoginButton>
+        </div>
       </div>
-      <div className="mt-2">
-        <p>
-          The route below is prefetched. If you have not visited it before but
-          go offline, it will be available offline.
-        </p>
-        <Link href="/cache-on-demand">cache on demand</Link>
-      </div>
+
+      <Link href="/offline-profile" className="absolute bottom-4 left-4 flex items-center gap-2 text-white hover:text-gray-200">
+        Go offline and check your profile
+      </Link>
+
+      <Link href="/cached-on-nav" className="absolute bottom-4 right-4 flex items-center gap-2 text-white hover:text-gray-200">
+        Cache on navigation
+      </Link>
     </main>
   );
 }

@@ -77,7 +77,11 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
       return { twoFactor: true };
     }
-  } else if (existingUser.isTwoFactorEnabled && existingUser.email && existingUser.TwoFactorMethod === TwoFactorMethod.OTP) {
+  } else if (
+    existingUser.isTwoFactorEnabled &&
+    existingUser.email &&
+    existingUser.TwoFactorMethod === TwoFactorMethod.OTP
+  ) {
     if (!code) {
       return { twoFactor: true };
     } else {
@@ -102,7 +106,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
     await signIn("credentials", { email, password, redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT });
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.cause) {
+      switch (error.type) {
         case "CredentialsSignin": {
           return { error: "Invalid credentials" };
         }
