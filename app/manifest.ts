@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "My PWA",
     description: "An example of how to use Serwist in Next.js",
     start_url: "/",
-    display: "browser",
+    display: "standalone",
     orientation: "portrait",
     background_color: "#fff",
     theme_color: "#fff",

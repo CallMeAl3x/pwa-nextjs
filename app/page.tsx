@@ -22,16 +22,20 @@ export default function Home() {
               Sign in
             </Button>
           </LoginButton>
+          <Link
+            href="/offline-profile"
+            className="absolute bottom-4 left-4 flex items-center gap-2 text-white hover:text-gray-200"
+          >
+            Go offline and check your profile
+          </Link>
+          <Link
+            href="/cached-on-nav"
+            className="absolute bottom-4 right-4 flex items-center gap-2 text-white hover:text-gray-200"
+          >
+            Cache on navigation
+          </Link>
         </div>
       </div>
-
-      <Link href="/offline-profile" className="absolute bottom-4 left-4 flex items-center gap-2 text-white hover:text-gray-200">
-        Go offline and check your profile
-      </Link>
-
-      <Link href="/cached-on-nav" className="absolute bottom-4 right-4 flex items-center gap-2 text-white hover:text-gray-200">
-        Cache on navigation
-      </Link>
     </main>
   );
 }
