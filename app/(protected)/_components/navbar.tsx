@@ -25,8 +25,8 @@ export const Navbar = () => {
         <Button asChild variant={pathname === "/offline-profile" ? "default" : "outline"}>
           <Link href="/offline-profile">Offline Profile</Link>
         </Button>
-        <Button asChild variant={pathname === "/form" ? "default" : "outline"}>
-          <Link href="/form">Offline Form</Link>
+        <Button asChild variant={pathname === "/form-page" ? "default" : "outline"}>
+          <Link href="/form-page">Offline Form</Link>
         </Button>
       </div>
       <UserButton />
