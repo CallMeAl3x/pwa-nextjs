@@ -1,8 +1,8 @@
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "lucide-react";
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -22,16 +22,10 @@ export default function Home() {
               Sign in
             </Button>
           </LoginButton>
-          <Link
-            href="/offline-profile"
-            className="absolute bottom-4 left-4 flex items-center gap-2 text-white hover:text-gray-200"
-          >
+          <Link href="/offline-profile" className=" flex items-center gap-2 text-white hover:text-gray-200">
             Go offline and check your profile
           </Link>
-          <Link
-            href="/cached-on-nav"
-            className="absolute bottom-4 right-4 flex items-center gap-2 text-white hover:text-gray-200"
-          >
+          <Link href="/cached-on-nav" className="flex items-center gap-2 text-white hover:text-gray-200">
             Cache on navigation
           </Link>
         </div>
